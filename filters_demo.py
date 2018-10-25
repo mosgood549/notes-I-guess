@@ -44,12 +44,24 @@ from PIL import Image
 #            pixmap[i,j] = (b,g,b)
 #    img.show()
 #    img.save("violet_filter.jpg")
-#    
-def mirror(img):
+#
+def mirror_half(img):
+    pixmap = img.load()
+    for i in range(img.size[0]//2):
+        for j in range(img.size[1]):
+            pixmap[i,j] = pixmap[img.size[0]-1-i,j]
+def top_switch(img):
     pixmap = img.load()
     for i in range(img.size[0]):
         for j in range(img.size[1]//2):
-            pixmap[i,j] = pixmap[i%(img.size[0]//2),j]
+            pixmap[i,j] = pixmap[i,img.size[1]-1-j]
+            
+
+def mirror(img):
+    pixmap = img.load()
+    mirror_half(img)
+    top_switch(img)
+    
 
              
     img.show()        
@@ -58,7 +70,7 @@ def mirror(img):
 
         
 def main():
-    img = Image.open("beach.jpg")
+    img = Image.open("lighthouse.jpg")
     img.show()
     mirror(img)
     
