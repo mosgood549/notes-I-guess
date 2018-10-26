@@ -1,5 +1,7 @@
 from PIL import Image
 
+from random import randint
+
 #img = Image.open("beach.jpg")
 #
 #img.show() #original image
@@ -45,6 +47,30 @@ from PIL import Image
 #    img.show()
 #    img.save("violet_filter.jpg")
 #
+def pointillism(image):
+    img = Image.open(image)
+    img.show() 
+    pixmap = img.load()
+
+    
+    for i in range(img.size[0]):
+        for j in range(0,img.size[1]):
+            r, g, b = pixmap[i,j]
+            r += randint(100,150)
+            g += randint(50,150)
+            b += randint(50,200)
+        
+            pixmap[i,j] = (r,g,b)
+    
+    img.show()
+    img.save("point_filter.jpg")
+    
+    
+
+
+
+
+
 def mirror_half(img):
     pixmap = img.load()
     for i in range(img.size[0]//2):
@@ -61,18 +87,18 @@ def mirror(img):
     pixmap = img.load()
     mirror_half(img)
     top_switch(img)
-    
-
              
     img.show()        
-
+    img.save("mirror.jpg")
     
 
         
 def main():
-    img = Image.open("lighthouse.jpg")
-    img.show()
-    mirror(img)
+    pointillism("mountains.jpg")
+
+#    img = Image.open("lighthouse.jpg")
+#    img.show()
+#    mirror(img)
     
     
 if __name__ == "__main__":
